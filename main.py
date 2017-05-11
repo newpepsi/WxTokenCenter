@@ -3,7 +3,9 @@ __author__ = 'newpepsi'
 import tornado.ioloop
 import tornado.web
 import requests
+
 # 设置多个微信公众号
+# 可以填写多个公众号的 appid appsecret
 MPS = [('appid1', 'appkey1'), ('appid2', 'appkey2')]
 
 
@@ -17,6 +19,12 @@ class TokenCache(object):
         self.wx_card_ticket = ''
 
     def get_ticket(self, access_token, type='jsapi'):
+        '''
+        
+        :param access_token: update access token中生成的access_token
+        :param type:  jsapi / wx_card 两个可选
+        :return: 
+        '''
         attr_name = '{}_ticket'.format(type)
         if hasattr(self, attr_name):
             url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={}&type={}'.format(
